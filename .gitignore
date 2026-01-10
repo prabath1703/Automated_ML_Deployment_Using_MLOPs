@@ -1,11 +1,27 @@
 # Python
-venv/
 __pycache__/
+*.pyc
+*.pyo
+*.pyd
+venv/
+.env
 
-# ML artifacts
-models/
-mlflow.db
+# DVC
+.dvc/cache/
+.dvc/tmp/
+*.dvc
+
+# Models (tracked by DVC, not Git)
+models/*
+!models/.gitignore
+
+# MLflow
 mlruns/
+mlflow.db
 
 # OS
 .DS_Store
+Thumbs.db
+
+# Docker
+*.log
