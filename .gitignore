@@ -1,6 +1,11 @@
+# Python
+venv/
 __pycache__/
-*.pyc
-.env
-.venv
+
+# ML artifacts
+models/
+mlflow.db
 mlruns/
 
+# OS
+.DS_Store

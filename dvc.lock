@@ -1,0 +1,18 @@
+schema: '2.0'
+stages:
+  train:
+    cmd: python src/train.py
+    deps:
+    - path: data/raw/churn.csv
+      hash: md5
+      md5: 0f9de68e012bd3aed5fa7cdc9fc421af
+      size: 977501
+    - path: src/train.py
+      hash: md5
+      md5: aafe63f44612c683065bc42bf86df923
+      size: 1252
+    outs:
+    - path: models/churn_model.joblib
+      hash: md5
+      md5: 26932353ed2ea91de61db6b58ea52a35
+      size: 1183
