@@ -1,8 +1,8 @@
 pandas
-numpy
+numpy==1.26.4
 scikit-learn
 mlflow
 joblib
 fastapi
 uvicorn
-evidently
+evidently==0.4.19

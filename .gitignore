@@ -25,3 +25,8 @@ Thumbs.db
 
 # Docker
 *.log
+# Docker
+*.tar
+# IDE
+.vscode/
+.idea/

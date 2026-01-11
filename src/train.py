@@ -46,3 +46,6 @@ with mlflow.start_run():
         artifact_path="model",
         registered_model_name="ChurnModel"
     )
+
+# Save reference data for drift detection
+X_train.to_csv("monitoring/reference_data.csv", index=False)

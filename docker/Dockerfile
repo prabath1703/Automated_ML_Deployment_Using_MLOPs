@@ -18,8 +18,9 @@ RUN pip install --no-cache-dir -r requirements.txt
 # Copy project files
 COPY src/ src/
 COPY models/ models/
-COPY mlruns/ mlruns/
-COPY mlflow.db mlflow.db
+#COPY mlruns/ mlruns/
+#COPY mlflow.db mlflow.db
+COPY monitoring/ monitoring/
 
 # Expose FastAPI port
 EXPOSE 8000
