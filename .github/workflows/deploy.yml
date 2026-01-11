@@ -10,38 +10,29 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
+    - name: Checkout code
+      uses: actions/checkout@v4
 
-      - name: Deploy to EC2 via SSH
-        uses: appleboy/ssh-action@v1.0.0
-        with:
-          host: ${{ secrets.EC2_HOST }}
-          username: ${{ secrets.EC2_USER }}
-          key: ${{ secrets.EC2_SSH_KEY }}
-          script: |
-            echo "🚀 Deploying MLOps API to EC2..."
+    - name: Deploy to EC2 via SSH
+      uses: appleboy/ssh-action@v1.0.0
+      with:
+        host: ${{ secrets.EC2_HOST }}
+        username: ubuntu
+        key: ${{ secrets.EC2_SSH_KEY }}
+        port: 22
+        script: |
+          echo "Connected to EC2"
 
-            # Go to project directory
-            cd ~/mlops || exit
+          cd ~/mlops
+          git pull origin main
 
-            # Pull latest changes
-            git fetch --all
-            git reset --hard origin/main
+          docker stop mlops-api || true
+          docker rm mlops-api || true
 
-            # Stop and remove existing container if any
-            docker stop mlops-api || true
-            docker rm mlops-api || true
+          docker build -t mlops-api .
 
-            # Build new Docker image
-            docker build -t mlops-api .
-
-            # Run container with volumes
-            docker run -d \
-              -p 8000:8000 \
-              -v ~/mlops/logs:/app/logs \
-              -v ~/mlops/data/raw:/app/data/raw \
-              --name mlops-api \
-              mlops-api
-
-            echo "✅ Deployment complete!"
+          docker run -d \
+            -p 8000:8000 \
+            -v /home/ubuntu/mlops/logs:/app/logs \
+            --name mlops-api \
+            mlops-api
