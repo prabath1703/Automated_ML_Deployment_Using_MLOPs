@@ -11,9 +11,6 @@ venv/
 .dvc/tmp/
 *.dvc
 
-# Models (tracked by DVC, not Git)
-models/*
-!models/.gitignore
 
 # MLflow
 mlruns/
