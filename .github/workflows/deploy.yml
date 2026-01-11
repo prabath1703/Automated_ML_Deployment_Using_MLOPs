@@ -1,33 +1,38 @@
-name: MLOps CI Pipeline
+name: Deploy MLOps API to EC2
 
 on:
   push:
-    branches: [ "main" ]
-  pull_request:
-    branches: [ "main" ]
+    branches:
+      - main
 
 jobs:
-  build-test:
+  deploy:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout repository
+    - name: Checkout code
       uses: actions/checkout@v4
 
-    - name: Set up Python
-      uses: actions/setup-python@v5
+    - name: Deploy to EC2 via SSH
+      uses: appleboy/ssh-action@v1.0.0
       with:
-        python-version: "3.10"
+        host: ${{ secrets.EC2_HOST }}
+        username: ubuntu
+        key: ${{ secrets.EC2_SSH_KEY }}
+        port: 22
+        script: |
+          echo "Connected to EC2"
 
-    - name: Install dependencies
-      run: |
-        python -m pip install --upgrade pip
-        pip install -r requirements.txt
+          cd ~/mlops
+          git pull origin main
 
-    - name: Run API tests
-      run: |
-        pytest -v
+          docker stop mlops-api || true
+          docker rm mlops-api || true
 
-    - name: Validate FastAPI app
-      run: |
-        python -c "from src.api.app import app; print('FastAPI app loaded successfully')"
+          docker build -t mlops-api .
+
+          docker run -d \
+            -p 8000:8000 \
+            -v /home/ubuntu/mlops/logs:/app/logs \
+            --name mlops-api \
+            mlops-api
