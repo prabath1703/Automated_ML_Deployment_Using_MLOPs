@@ -6,10 +6,16 @@ __pycache__/
 venv/
 .env
 
-# DVC
-.dvc/cache/
-.dvc/tmp/
-*.dvc
+# Ignore raw data files
+data/raw/*.csv
+
+# Allow DVC metadata files
+!data/raw/*.dvc
+
+# Allow DVC internal directory
+!.dvc
+!.dvc/**
+
 
 
 # MLflow
