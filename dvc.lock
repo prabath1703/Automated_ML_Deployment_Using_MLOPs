@@ -9,10 +9,42 @@ stages:
       size: 977501
     - path: src/train.py
       hash: md5
-      md5: aafe63f44612c683065bc42bf86df923
-      size: 1252
+      md5: 3cd85d2b2bc9aca3a606c0436dde2a0e
+      size: 3882
     outs:
     - path: models/churn_model.joblib
       hash: md5
-      md5: 26932353ed2ea91de61db6b58ea52a35
+      md5: ff85f907e1ed59b129436b420e0cb4bd
       size: 1183
+  train_churn:
+    cmd: python src/train_classification.py
+    deps:
+    - path: data/raw/churn.csv
+      hash: md5
+      md5: 0f9de68e012bd3aed5fa7cdc9fc421af
+      size: 977501
+    - path: src/train_classification.py
+      hash: md5
+      md5: fd258fd8eac216c0903a01f1b99d2318
+      size: 3907
+    outs:
+    - path: models/churn_model.joblib
+      hash: md5
+      md5: ff85f907e1ed59b129436b420e0cb4bd
+      size: 1183
+  train_house_price:
+    cmd: python src/train_regression.py
+    deps:
+    - path: data/raw/house_prices.csv
+      hash: md5
+      md5: 80ccab65fb115cbad143dbbd2bcd5577
+      size: 460676
+    - path: src/train_regression.py
+      hash: md5
+      md5: 16ba08415e35d2ff2a38b28df8b6a38a
+      size: 3778
+    outs:
+    - path: models/house_price_model.joblib
+      hash: md5
+      md5: 6b764d2052fcdd437713d7c4a4fcc786
+      size: 8134321

@@ -13,16 +13,16 @@ TARGET = "prediction"
 
 
 def retrain_model():
-    print("📊 Loading new data for retraining...")
+    print("Loading new data for retraining...")
 
     if not os.path.exists(LOG_FILE):
-        print("❌ No prediction logs found. Skipping retraining.")
+        print(" No prediction logs found. Skipping retraining.")
         return
 
     df = pd.read_csv(LOG_FILE)
 
     if df[TARGET].nunique() < 2:
-        print("⚠️ Only one class present in data. Retraining skipped.")
+        print(" Only one class present in data. Retraining skipped.")
         return
 
     X = df[FEATURES]
@@ -32,7 +32,7 @@ def retrain_model():
     model.fit(X, y)
 
     joblib.dump(model, MODEL_PATH)
-    print("✅ Model retrained and saved successfully")
+    print("Model retrained and saved successfully")
 
 
 if __name__ == "__main__":

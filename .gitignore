@@ -21,6 +21,7 @@ data/raw/*.csv
 # MLflow
 mlruns/
 mlflow.db
+models/
 
 # OS
 .DS_Store

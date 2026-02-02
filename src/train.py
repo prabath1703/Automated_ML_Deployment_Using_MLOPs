@@ -1,3 +1,6 @@
+import joblib
+import os
+
 import pandas as pd
 import numpy as np
 import mlflow
@@ -9,11 +12,13 @@ from sklearn.ensemble import RandomForestClassifier
 from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_score
 
 
+
+os.makedirs("models", exist_ok=True)
+
 # =========================
 # 1. Load & preprocess data
 # =========================
-DATASET_NAME = "Churn"
-EXPERIMENT_NAME = f"{DATASET_NAME} (Classification)"
+EXPERIMENT_NAME = "Churn Prediction"
 
 df = pd.read_csv("data/raw/churn.csv")
 
@@ -140,7 +145,13 @@ with mlflow.start_run(run_name="Best Model"):
 # =========================
 # 8. Save reference data
 # =========================
-X_train.to_csv("monitoring/reference_data.csv", index=False)
+X_train.to_csv(
+    "monitoring/reference_data.csv",
+    index=False
+)
+
+
+joblib.dump(best_model, "models/churn_model.joblib")
 
 print("\nTraining completed.")
 print("All experiments logged in MLflow.")
