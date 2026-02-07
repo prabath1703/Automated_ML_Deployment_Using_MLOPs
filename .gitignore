@@ -6,11 +6,7 @@ __pycache__/
 venv/
 .env
 
-# Ignore raw data files
-data/raw/*.csv
 
-# Allow DVC metadata files
-!data/raw/*.dvc
 
 # Allow DVC internal directory
 !.dvc
