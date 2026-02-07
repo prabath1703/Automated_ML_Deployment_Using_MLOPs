@@ -34,7 +34,8 @@ jobs:
     # 5. Build Docker Image (includes trained model)
     - name: Build Docker Image
       run: |
-        docker build -t mlops-api .
+        docker build -t mlops-api -f docker/Dockerfile .
+
 
     # 6. Deploy to AWS EC2
     - name: Deploy to EC2 via SSH
