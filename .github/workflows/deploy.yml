@@ -54,7 +54,7 @@ jobs:
           docker stop mlops-api || true
           docker rm mlops-api || true
 
-          docker build -t mlops-api .
+          docker build -t mlops-api -f docker/Dockerfile .
 
           docker run -d \
             -p 8000:8000 \
