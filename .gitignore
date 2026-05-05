@@ -1,0 +1,32 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+venv/
+.env
+
+
+
+# Allow DVC internal directory
+!.dvc
+!.dvc/**
+
+
+
+# MLflow
+mlruns/
+mlflow.db
+models/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Docker
+*.log
+# Docker
+*.tar
+# IDE
+.vscode/
+.idea/
